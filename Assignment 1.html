@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> Dundas Valley Conservation Area - Free Parking Locations and Attractions </title>
+    
+    <!--Link to Leaflet CSS document-->
+	 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+   		integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin=""/>
+           
+    <!--Link to Leaflet JS API-->
+   	 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+   		integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+           crossorigin=""></script>
+       
+    <!--Styling document elements, Indicating the content is CSS-->
+    <style type="text/css">
+    /* declaring the map to fill the entire page,*/
+        html { height: 100% }
+        body { height: 100%; margin: 0; padding: 0 }
+        #mapid { width: 100%; height: 100%}
+
+    /*styling popup content*/
+        .leaflet-popup-content-wrapper {
+            background:#2c3e50;
+            color:#fff;
+            font-size:14px;
+            line-height:24px;
+            max-width: 225px;
+            text-align: Center;
+        }
+        
+
+   	</style>
+</head>
+<body>
+
+<!--Declare map div container to place the map inside on the page-->
+<div id="mapid"></div>
+<script>
+
+    //set a variable for the bounds of the map
+    var southWest = L.latLng(43.186675, -80.076989),
+        northEast = L.latLng(43.296083, -79.909309),
+        bounds = L.latLngBounds(southWest, northEast);
+    
+    //declare 'mapid' div
+    //set centre point to the Dundas valley conservation area
+    //set max bounds to var = bounds
+    var mymap = L.map('mapid')
+        .setView([43.239497, -79.994218], 14)
+        .setMaxBounds(bounds);
+
+    //Add Hike-Bike tile layer
+	L.tileLayer('https://tiles.wmflabs.org/hikebike/{z}/{x}/{y}.png', {
+	    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    }).addTo(mymap);
+
+    // Add polygon to indicate the bounds of the conservation area
+    // Change colour to red and opacity to 0.05
+    var polygon = L.polygon([
+        [43.212666, -80.030889],
+        [43.234969, -80.037872],
+        [43.248444, -80.026803],
+        [43.263431, -79.946050],
+        [43.256127, -79.936838],
+        [43.243953, -79.946199],
+        [43.220678, -79.983195],
+        ],
+        {fillOpacity: 0.05, color: 'red'})
+        .addTo(mymap);
+    
+    // Add custom icon for parking
+    var parkingIcon = L.icon({
+        iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/8/87/Map_symbol_parking_02.png',
+        iconSize: [38, 38],
+    });
+
+    //Add marker with custom parking icon
+    var marker = L.marker([43.220624, -80.010205], {icon: parkingIcon}).addTo(mymap)
+        //Bind popup to the marker.
+        //Remove Openpopup so that no popups open on map load.
+        //Add description to be used in popup.
+        marker.bindPopup("<b>Martin Road Trail Entrance</b><p> Free city owned lot");
+        //make popup available on hover and go away when mouse moves out
+            marker.on('mouseover', function(e){
+                this.openPopup();
+            });
+            marker.on('mouseout', function (e){
+                this.closePopup();
+            });
+
+    var marker = L.marker([43.256325, -79.949124], {icon: parkingIcon}).addTo(mymap);
+        marker.bindPopup("<b>Little John Trail Entrance</b><p> Street Parking");
+            marker.on('mouseover', function(e){
+                this.openPopup();
+            });
+            marker.on('mouseout', function (e){
+                this.closePopup();
+            });
+
+    var marker = L.marker([43.254259, -79.969083], {icon: parkingIcon}).addTo(mymap);
+        marker.bindPopup("<b>Sanctuary Park Trail Entrance</b><p> Free city owned lot");
+            marker.on('mouseover', function(e){
+                this.openPopup();
+            });
+            marker.on('mouseout', function (e){
+                this.closePopup();
+            });
+
+    var marker = L.marker([43.232610, -79.974962], {icon: parkingIcon}).addTo(mymap);
+        marker.bindPopup("<b>Old Mill Trail Entrance</b><p> Lot owned by Old Mill. You can usually get away with parking here")
+            marker.on('mouseover', function(e){
+                this.openPopup();
+            });
+            marker.on('mouseout', function (e){
+                this.closePopup();
+            });
+    
+    var marker = L.marker([43.220929, -80.033431], {icon: parkingIcon}).addTo(mymap);
+        marker.bindPopup("<b>Patty Green Parking</b><p>Parking on Gravel Road. Not usually busy and easy access to Headwater Trail");
+            marker.on('mouseover', function(e){
+                this.openPopup();
+            });
+            marker.on('mouseout', function (e){
+                this.closePopup();
+            });
+
+    //add custom marker for waterfalls
+    var waterfallIcon = L.icon({
+        iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/5/56/Map_marker_icon_%E2%80%93_Nicolas_Mollet_%E2%80%93_Waterfall_%E2%80%93_Nature_%E2%80%93_classic.png',
+        iconSize: [38, 38],
+    });
+    //repeat same process as with parking but using waterfall icon
+    var marker = L.marker([43.238361, -79.972995], {icon: waterfallIcon}).addTo(mymap);
+        marker.bindPopup("<b>Sherman Falls</b>");
+            marker.on('mouseover', function(e){
+                this.openPopup();
+            });
+            marker.on('mouseout', function (e){
+                this.closePopup();
+            });
+
+    var marker = L.marker([43.237002, -79.980668], {icon: waterfallIcon}).addTo(mymap);
+        marker.bindPopup("<b>Canterbury Falls</b>");
+            marker.on('mouseover', function(e){
+                this.openPopup();
+            });
+            marker.on('mouseout', function (e){
+                this.closePopup();
+            });
+    
+    var marker = L.marker([43.238201, -79.957998], {icon: waterfallIcon}).addTo(mymap);
+        marker.bindPopup("<b>Tiffany Falls</b>");
+            marker.on('mouseover', function(e){
+                this.openPopup();
+            });
+            marker.on('mouseout', function (e){
+                this.closePopup();
+            });
+
+    //add custom marker for trail centre
+    var informationIcon = L.icon({
+        iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/7/75/Information-silk.png',
+        iconSize: [30, 30],
+    });
+    //same process
+    var marker = L.marker([43.245632, -79.995764], {icon: informationIcon}).addTo(mymap);
+        marker.bindPopup("<b>Trail Centre</b>");
+            marker.on('mouseover', function(e){
+                this.openPopup();
+            });
+            marker.on('mouseout', function (e){
+                this.closePopup();
+            });
+    
+    //add custom marker for camera
+    var cameraIcon = L.icon({
+        iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/1/18/Stub_fotografia_high_resolution.png',
+        iconSize: [25, 20],
+    });
+
+    var marker = L.marker([43.243680, -79.985667], {icon: cameraIcon}).addTo(mymap);
+        marker.bindPopup("<b>Groundhog Hill</b>");
+            marker.on('mouseover', function(e){
+                this.openPopup();
+            });
+            marker.on('mouseout', function (e){
+                this.closePopup();
+            });
+</script>
+</body>
+</html>
